@@ -1,0 +1,102 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+form {
+	width:620px;
+	margin: 20px auto;
+}
+ol {
+	list-style: none;
+	padding: 0;
+}
+*:focus{
+	outline:none;
+}
+fieldset {
+	border:none;
+}
+legend {
+	font-size:24px;
+	margin-bottom:20px;
+}
+input, textarea {
+	border:1px solid #ccc;
+	font-size:20px;
+	min-width:300px;
+	min-height:30px;
+	display:block;
+	margin-bottom:16px;
+	margin-top:8px;
+	border-radius:5px;
+	transition: all 0.5s ease-in-out;
+}
+textarea {
+	min-height:100px;
+}
+input:focus, textarea:focus {
+	box-shadow:0 0 25px #ccc;
+	transform: scale(1.05);
+}
+input:not(:focus), textarea:not(:focus) {
+	opacity:0.5;
+}
+input:required, textarea:required {
+	background:url("asterisk_orange.png") no-repeat 280px 7px;	
+}
+input:valid, textarea:valid {
+	background:url("tick.png") no-repeat 280px 5px;			
+}
+input:focus:invalid, textarea:focus:invalid {
+	background:url("cancel.png") no-repeat 280px 7px;					
+}
+input[type=submit] {
+	color: #fff;
+	padding:10px;
+	background:#007eb6;
+	opacity:1.0;
+}
+
+input[type="number"], input[type="number"]:required, input[type="number"]:valid, input[type="number"]:focus:invalid {
+	background-position:260px 7px; 
+}
+
+::-webkit-input-placeholder {
+   color: #aaa;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
