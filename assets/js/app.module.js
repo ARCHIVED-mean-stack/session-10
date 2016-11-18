@@ -1,0 +1,1 @@
+angular.module('pirateApp', ['ngRoute', 'piratesView', 'pirateDetail']);

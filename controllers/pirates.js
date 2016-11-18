@@ -13,7 +13,12 @@ exports.findById = function (req, res) {
     });
 };
 
-exports.add = function () { };
+exports.add = function (req, res) {
+    Pirate.create(req.body, function (err, pirate) {
+        if (err) return console.log(err);
+        return res.send(pirate);
+    });
+}
 
 exports.update = function (req, res) {
     var id = req.params.id;
@@ -26,7 +31,12 @@ exports.update = function (req, res) {
         })
 };
 
-exports.delete = function () { };
+exports.delete = function (req, res) {
+    var id = req.params.id;
+    Pirate.remove({ '_id': id }, function (result) {
+        return res.send(result);
+    });
+};
 
 exports.import = function (req, res) {
     Pirate.create(

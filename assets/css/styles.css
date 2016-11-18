@@ -36,7 +36,7 @@ input[type="email"], input[type="number"], input[type="search"], input[type="tex
     box-sizing: border-box;
 }
 
-button {
+input[type="submit"], button {
     color: #FFF;
     background-color: #33C3F0;
     display: inline-block;
