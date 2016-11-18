@@ -2,6 +2,14 @@
 
 ##Homework
 
+##Bower
+
+`$ npm install -g bower`
+
+`$ bower lookup bootstrap-sass`
+
+`$ bower install bootstrap-sass`
+
 
 ##Form Validation
 
