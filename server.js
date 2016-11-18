@@ -7,7 +7,7 @@ var db = mongoose.connection;
 mongoose.connect(mongoUri);
 
 app.use(express.static('assets'))
-app.use(express.static('bower_components'))
+
 app.use(bodyParser.json());
 
 db.on('error', function() {
