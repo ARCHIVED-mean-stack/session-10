@@ -1,21 +1,52 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var mongoUri = 'mongodb://localhost/rest-apis';
-var db = mongoose.connection;
-mongoose.connect(mongoUri);
+var express = require('express')
+var app = express()
+var mongoose = require('mongoose')
+var jwt = require('jwt-simple')
+var bodyParser = require('body-parser')
+var mongoUri = 'mongodb://localhost/rest-apis'
+var db = mongoose.connection
 
-app.use(express.static('assets'))
+// var secretKey = 'supersecretkey'
+var users = [{ username: 'dickeyxxx', password: 'pass' }]
+var secretKey = 'supersecretkey'
+
+function findUserByUsername(username) {
+    return _.find(users, { username: username })
+}
+
+function validateUser(user, password) {
+    return user.password === password
+}
+
+mongoose.connect(mongoUri)
 
 app.use(bodyParser.json());
+app.use(express.static('assets'))
 
-db.on('error', function() {
+db.on('error', function () {
     throw new Error('unable to connect at' + mongoUri);
 })
 
 require('./models/pirate');
 require('./routes')(app);
 
+app.post('/session', function (req, res) {
+    var user = findUserByUsername(req.body.username)
+    if (!validateUser(user, req.body.password)) {
+        return res.send(401) // Unauthorized
+    }
+    var token = jwt.encode({ username: user.username }, secretKey)
+    res.json(token)
+})
+
+app.get('/user', function (req, res) {
+    var token = req.headers['x-auth']
+    var user = jwt.decode(token, secretKey)
+    // TODO: pull user info from database
+    res.json(user)
+})
+
 app.listen(3004);
 console.log('port 3004');
+
+// curl - H "X-Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRpY2tleXh4eCJ9.0w1RshE-2k7r94VmFZeSH_JBOTAg90EecznduMwaEGc" localhost: 3004 / user
