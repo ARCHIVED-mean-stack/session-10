@@ -1,5 +1,13 @@
 #MEAN Session 10
 
+`sass input.scss output.css`
+
+`sass --watch style.scss:style.css`
+
+e.g. `sass --watch app/sass:public/stylesheets`
+
+
+
 http://jsfiddle.net/timriley/GVCP2/
 
 
