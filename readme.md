@@ -2,6 +2,84 @@
 
 ##Homework
 
+##Update / Post
+
+http://jsfiddle.net/timriley/GVCP2/
+
+
+```
+<h1>Pirate Detail View</h1>
+
+
+<div ng-hide="$ctrl.editorEnabled">
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ $ctrl.pirate.name }}</dd>
+        <dt>Vessel</dt>
+        <dd>{{ $ctrl.pirate.vessel }}</dd>
+        <dt>Weapon</dt>
+        <dd>{{ $ctrl.pirate.weapon }}</dd>
+        <dt>ID</dt>
+        <dd>{{ $ctrl.pirate._id }}</dd>
+    </dl>
+    <button ng-click="$ctrl.enableEditor($ctrl.pirate)">Edit</button>
+</div>
+<div ng-show="$ctrl.editorEnabled">
+    <form ng-submit="$ctrl.savePirate($ctrl.pirate, $ctrl.pirate._id)" name="updatePirate">
+        <label>Name</label>
+        <input ng-model="$ctrl.pirate.name">
+        <label>Vessel</label>
+        <input ng-model="$ctrl.pirate.vessel">
+        <label>Weapon</label>
+        <input ng-model="$ctrl.pirate.weapon">
+        <label>Weapon</label>
+        <input ng-model="$ctrl.pirate._id">
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+<button type="submit" ng-click="$ctrl.back()">Back</button>
+```
+
+
+```js
+angular.module('pirateDetail', []).component('pirateDetail', {
+    templateUrl: '/templates/pirate-detail.html',
+
+    controller: ['$scope', '$http', '$routeParams', '$location',
+        function PirateDetailController($scope, $http, $routeParams, $location) {
+            var self = this;
+            $http.get('/api/pirates/' + $routeParams.pirateId)
+                .then(function (res) {
+                    self.pirate = res.data;
+                });
+
+            self.back = function () {
+                $location.path('/');
+            }
+
+            self.editorEnabled = false;
+
+            self.enableEditor = function () {
+                self.editorEnabled = true;
+            };
+
+            self.disableEditor = function () {
+                self.editorEnabled = false;
+            };
+
+            self.savePirate = function (pirate, pid) {
+                console.log(pirate.name)
+                $http.put('/api/pirates/' + pid, pirate)
+                    .success(function (res) {
+                        self.editorEnabled = false;
+                    })
+            }
+        }
+    ]
+});
+```
+
 ##Bower
 
 `$ npm install -g bower`
