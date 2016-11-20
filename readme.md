@@ -6,6 +6,7 @@
 
 http://jsfiddle.net/timriley/GVCP2/
 
+pirate-view.html
 
 ```
 <h1>Pirate Detail View</h1>
@@ -41,6 +42,7 @@ http://jsfiddle.net/timriley/GVCP2/
 <button type="submit" ng-click="$ctrl.back()">Back</button>
 ```
 
+pirate-view.component.js
 
 ```js
 angular.module('pirateDetail', []).component('pirateDetail', {
