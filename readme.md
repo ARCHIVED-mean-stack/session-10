@@ -82,13 +82,169 @@ angular.module('pirateDetail', []).component('pirateDetail', {
 });
 ```
 
-##Bower
+##GULP
 
-`$ npm install -g bower`
+From Image Gallery exercise:
 
-`$ bower lookup bootstrap-sass`
+```js
+  "devDependencies": {
+    "browser-sync": "^2.16.0",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0"
+  }
+```
 
-`$ bower install bootstrap-sass`
+```
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var browserSync = require('browser-sync')
+var express = require('express');
+
+var sassOptions = {
+	errLogToConsole: true,
+	outputStyle: 'expanded'
+};
+
+var sassSources = './app/public/sass/**/*.scss';
+var sassOutput = './app/public/css';
+var htmlSource = './app/public/**/*.html';
+
+var app = express();
+var port = process.env.PORT || 3000;
+
+gulp.task('sass', function(){
+	return gulp.src(sassSources)
+	.pipe(sourcemaps.init())
+	.pipe(sass(sassOptions).on('error', sass.logError))
+	.pipe(sourcemaps.write('.'))
+	.pipe(gulp.dest(sassOutput))
+	.pipe(browserSync.stream())
+});
+
+function listening () {
+	browserSync({
+		proxy: 'localhost:' + port,
+		browser: "google chrome"
+	});
+	gulp.watch(sassSources, ['sass']);
+	gulp.watch(htmlSource).on('change', browserSync.reload);
+}
+
+
+app.use(express.static('./app/public'));
+
+app.listen(port, listening);
+```
+
+Integrate into our server.js:
+
+```
+var express = require('express');
+var app = express();
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var mongoUri = 'mongodb://localhost/rest-apis';
+
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var browserSync = require('browser-sync')
+
+var sassOptions = {
+    errLogToConsole: true,
+    outputStyle: 'expanded'
+};
+
+var sassSources = './assets/scss/**/*.scss';
+var sassOutput = './assets/css';
+var htmlSource = './assets/**/*.html';
+
+var port = process.env.PORT || 3004;
+
+gulp.task('sass', function() {
+    return gulp.src(sassSources)
+        .pipe(sourcemaps.init())
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(sassOutput))
+        .pipe(browserSync.stream())
+});
+
+function listening() {
+    browserSync({
+        proxy: 'localhost:' + port,
+        browser: "google chrome"
+    });
+    gulp.watch(sassSources, ['sass']);
+    gulp.watch(htmlSource).on('change', browserSync.reload);
+}
+
+var db = mongoose.connection;
+mongoose.connect(mongoUri);
+
+app.use(express.static('assets'))
+
+app.use(bodyParser.json());
+
+db.on('error', function() {
+    throw new Error('unable to connect at' + mongoUri);
+})
+
+require('./models/pirate');
+require('./routes')(app);
+
+app.listen(port, listening);
+console.log('port 3004');
+```
+
+##Bootstrap
+
+Add bootstrap sass
+
+`http://getbootstrap.com/css/`
+
+`http://getbootstrap.com/components/`
+
+```
+<h3>Pirates</h3>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">Pirates View</h2>
+    </div>
+    <div class="list-group">
+        <li class="list-group-item" ng-repeat="pirate in pirates">
+            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </li>
+        </ul>
+    </div>
+</div>
+
+<h3>Add a Pirate</h3>
+
+<form ng-submit="addPirate(pirate)" name="add-pirate" novalidate>
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
+            <p ng-show="add-pirate.name.$invalid">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true" />
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true" />
+        </div>
+        <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
+    </fieldset>
+</form>
+</div>
+```
 
 
 ##Form Validation
@@ -175,14 +331,7 @@ Add
 - placeholder text
 - novalidate - use html5 form elements but not for validation
 
-```html
-<form ng-submit="addPirate(pirate)" novalidate>
-    <input type="text" placeholder="Name" ng-model="pirate.name" />
-    <input type="text" placeholder="Vessel Name" ng-model="pirate.vessel" />
-    <input type="text" placeholder="Favorite weapon" ng-model="pirate.weapon" />
-    <input type="submit" value="Add Pirate">
-</form>
-```
+
 
 
 ##Angular Validation
@@ -190,37 +339,6 @@ Add
 - Add name attribute to form
 - Add required to form fields
 - Add name attributes for fields
-
-```html
-<form name="addPirateForm" ng-submit="addPirate(pirate)" novalidate>
-    <input name="name" type="text" required placeholder="Name" ng-model="pirate.name" />
-    <p ng-show="addPirateForm.name.$invalid" class="help-block">required</p>
-    <input name="vessel" type="text" required placeholder="Vessel Name" ng-model="pirate.vessel" />
-    <p ng-show="addPirateForm.vessel.$invalid" class="help-block">required</p>
-    <input name="weapon" type="text" required placeholder="Favorite weapon" ng-model="pirate.weapon" />
-    <p ng-show="addPirateForm.weapon.$invalid" class="help-block">required</p>
-    <input type="submit" value="Add Pirate">
-</form>
-```
-
-- Add ng-disabled
-
-```html
-<form name="addPirateForm" ng-submit="addPirate(pirate)" novalidate>
-    <input name="name" type="text" required placeholder="Name" ng-model="pirate.name" />
-    <p ng-show="addPirateForm.name.$invalid" class="help-block">required</p>
-    <input name="vessel" type="text" required placeholder="Vessel Name" ng-model="pirate.vessel" />
-    <p ng-show="addPirateForm.vessel.$invalid" class="help-block">required</p>
-    <input name="weapon" type="text" required placeholder="Favorite weapon" ng-model="pirate.weapon" />
-    <p ng-show="addPirateForm.weapon.$invalid" class="help-block">required</p>
-    <input ng-disabled="addPirateForm.$invalid" type="submit" value="Add Pirate">
-</form>
-```
-Try adding `ng-minlength="3" ng-maxlength="10"` to the name field.
-
-`<p ng-show="addPirateForm.name.$error.maxlength" class="help-block">Name is too long</p>`
-
-`<p ng-show="addPirateForm.name.$invalid && !addPirateForm.name.$error.maxlength" class="help-block">required</p>`
 
 Some CSS selectors available to us:
 
@@ -236,6 +354,159 @@ Some CSS selectors available to us:
 .ng-invalid-minlength       {  }
 .ng-valid-max-length        {  }
 ```
+
+`https://docs.angularjs.org/guide/forms`
+
+```
+<h3>Pirates</h3>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">Pirates View</h2>
+    </div>
+    <div class="list-group">
+        <li class="list-group-item" ng-repeat="pirate in pirates">
+            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </li>
+        </ul>
+    </div>
+</div>
+
+<h3>Add a Pirate</h3>
+
+<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="name" class="form-control" id="pirate-name" placeholder="Name" ng-minlength="4"
+                ng-required="true">
+            <p ng-show="addform.pname.$invalid">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
+            <p ng-show="addform.pvessel.$invalid">You must enter a vessel.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
+            <p ng-show="addform.pweapon.$invalid">You must enter a weapon.</p>
+        </div>
+        <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
+    </fieldset>
+</form>
+```
+
+&& and ng-disabled
+
+```
+<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <p ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
+            <p ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
+            <p ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
+        </div>
+        <button type="submit" value="Add Pirate" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
+    </fieldset>
+</form>
+```
+
+```
+<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <p class="error" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
+            <p class="error" ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
+            <p class="error" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
+        </div>
+        <button type="submit" ng-submit="addPirate(pirate)" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
+    </fieldset>
+</form>
+```
+
+`https://docs.angularjs.org/api/ng/type/form.FormController`
+
+```
+$scope.addPirate = function (data) {
+    $http.post('/api/pirates/', data)
+        .success(function () {
+            $scope.pirates.push(data);
+            $scope.pirate = {}
+            $scope.addform.$setPristine();
+            $scope.addform.$setUntouched();
+        })
+};
+```
+
+add message
+
+`<p ng-show="message">A pirate named {{message}} was added.</p>`
+
+```
+$scope.addPirate = function (pirate) {
+    $http.post('/api/pirates/', pirate)
+        .success(function () {
+            $scope.message = pirate.name;
+            $scope.pirates.push(pirate);
+            $scope.pirate = {}
+            $scope.addform.$setPristine();
+            $scope.addform.$setUntouched();
+
+        })
+};
+```
+
+add bootstrap text-success / text-warning
+
+```
+<h3>Add a Pirate</h3>
+<p class="text-success" ng-show="message">A pirate named {{message}} was added.</p>
+
+<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <p class="text-warning" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
+            <p class="text-warning" ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
+            <p class="text-warning" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
+    </fieldset>
+</form>
+```
+
+
 
 ##Showing Errors After Submission
 
