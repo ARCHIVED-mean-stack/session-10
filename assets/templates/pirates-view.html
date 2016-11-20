@@ -1,14 +1,38 @@
-<h1>Pirates View</h1>
-<ul>
-    <li ng-repeat="pirate in pirates">
-        <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
-        <span ng-click="deletePirate($index, pirate._id)">X</span>
-    </li>
-</ul>
+<h3>Pirates</h3>
 
-<form ng-submit="addPirate(pirate)">
-    <input type="text" ng-model="pirate.name" />
-    <input type="text" ng-model="pirate.vessel" />
-    <input type="text" ng-model="pirate.weapon" />
-    <input type="submit" value="Add Pirate">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">Pirates View</h2>
+    </div>
+    <div class="list-group">
+        <li class="list-group-item" ng-repeat="pirate in pirates">
+            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </li>
+        </ul>
+    </div>
+</div>
+
+<h3>Add a Pirate</h3>
+<p class="text-success" ng-show="message">A pirate named {{message}} was added.</p>
+
+<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <p class="text-warning" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
+            <p class="text-warning" ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
+            <p class="text-warning" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
+    </fieldset>
 </form>

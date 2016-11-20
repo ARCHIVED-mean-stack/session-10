@@ -16,16 +16,26 @@
 </div>
 <div ng-show="$ctrl.editorEnabled">
     <form ng-submit="$ctrl.savePirate($ctrl.pirate, $ctrl.pirate._id)" name="updatePirate">
-        <label>Name</label>
-        <input ng-model="$ctrl.pirate.name">
-        <label>Vessel</label>
-        <input ng-model="$ctrl.pirate.vessel">
-        <label>Weapon</label>
-        <input ng-model="$ctrl.pirate.weapon">
-        <label>Weapon</label>
-        <input ng-model="$ctrl.pirate._id">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input ng-model="$ctrl.pirate.name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Vessel</label>
+            <input ng-model="$ctrl.pirate.vessel" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Weapon</label>
+            <input ng-model="$ctrl.pirate.weapon" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Weapon</label>
+            <input ng-model="$ctrl.pirate._id" class="form-control">
+        </div>
         <input type="submit" value="Save">
-    </form>
+</div>
+</form>
 </div>
 
 <button type="submit" ng-click="$ctrl.back()">Back</button>
