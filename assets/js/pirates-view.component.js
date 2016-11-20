@@ -5,7 +5,6 @@ angular.module('piratesView', []).component('piratesView', {
         $http.get('/api/pirates').
             then(function (response) {
                 $scope.pirates = response.data;
-                console.log($scope.pirates);
             });
 
         $scope.deletePirate = function (index, pid) {
