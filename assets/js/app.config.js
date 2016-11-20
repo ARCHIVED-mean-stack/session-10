@@ -7,7 +7,7 @@ angular.module('pirateApp').
                 }).
                 when('/pirates/:pirateId', {
                     template: '<pirate-detail></pirate-detail>'
-                }).
-                otherwise('/');
+                })
+            // .otherwise('/');
         }
     ]);
