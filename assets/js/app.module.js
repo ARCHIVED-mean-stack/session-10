@@ -1,1 +1,1 @@
-angular.module('pirateApp', ['ngRoute', 'piratesView', 'pirateDetail']);
+angular.module('pirateApp', ['ngRoute', 'piratesView', 'pirateDetail', 'ngMessages']);
