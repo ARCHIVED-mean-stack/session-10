@@ -23,7 +23,6 @@ exports.add = function (req, res) {
 exports.update = function (req, res) {
     var id = req.params.id;
     var updates = req.body;
-    console.log(updates)
     Pirate.update({ '_id': id }, req.body,
         function (err, numberAffected) {
             if (err) return console.log(err);
