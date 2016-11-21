@@ -214,7 +214,7 @@ Edit the main sass file: `@import 'assets/stylesheets/bootstrap';`
 
 Edit index.html:
 
-```html
+```
 <body>
     <div class="container" ng-view></div>
 </body>
@@ -240,12 +240,12 @@ Apply to pirates-view.html:
 
 <h3>Add a Pirate</h3>
 
-<form ng-submit="addPirate(pirate)" name="add-pirate" novalidate>
+<form ng-submit="addPirate(pirate)" name="addform" novalidate>
     <fieldset>
         <div class="form-group">
             <label for="pirate-name">Name</label>
             <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
-            <p ng-show="add-pirate.name.$invalid">You must enter a name.</p>
+            <p ng-show="addform.name.$invalid">You must enter a name.</p>
         </div>
         <div class="form-group">
             <label for="pirate-vessel">Vessel</label>
@@ -260,6 +260,9 @@ Apply to pirates-view.html:
 </form>
 </div>
 ```
+
+Test all functions.
+
 
 ##Form Validation - HTML5
 
