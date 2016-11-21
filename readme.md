@@ -40,7 +40,7 @@ Use edit in place in `pirate-detail.html`:
 <button type="submit" ng-click="$ctrl.back()">Back</button>
 ```
 
-`pirate-view.component.js`
+Add the feature to `pirate-detail.component.js`:
 
 ```js
 angular.module('pirateDetail', []).component('pirateDetail', {
