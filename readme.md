@@ -31,7 +31,7 @@ Use edit in place in `pirate-detail.html`:
         <input ng-model="$ctrl.pirate.vessel">
         <label>Weapon</label>
         <input ng-model="$ctrl.pirate.weapon">
-        <label>Weapon</label>
+        <label>ID</label>
         <input ng-model="$ctrl.pirate._id">
         <input type="submit" value="Save">
     </form>
@@ -80,7 +80,7 @@ angular.module('pirateDetail', []).component('pirateDetail', {
 });
 ```
 
-Test.
+Test buttons. Test editing pirate.
 
 ##GULP
 
@@ -263,6 +263,7 @@ Apply to pirates-view.html:
 
 Test all functions.
 
+
 ##Form Validation - HTML5
 
 The fieldset element functions as a structural container for different sections within a form element.
@@ -359,12 +360,29 @@ See the [Angular Forms Guide](https://docs.angularjs.org/guide/forms) for comple
 Add validation to our add pirate form.
 
 - Add name attribute to form
-- Add ng-required = "true" to form fields
+- Add required to form fields
 - Add name attributes for fields
-- Add novalidate - used to disable browser's native form validation
+- novalidate - is used to disable browser's native form validation
 
-```html
-<form ng-submit="addPirate(pirate)" name="addform" novalidate>
+```
+<h3>Pirates</h3>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">Pirates View</h2>
+    </div>
+    <div class="list-group">
+        <li class="list-group-item" ng-repeat="pirate in pirates">
+            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </li>
+        </ul>
+    </div>
+</div>
+
+<h3>Add a Pirate</h3>
+
+<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
     <fieldset>
         <div class="form-group">
             <label for="pirate-name">Name</label>
@@ -387,7 +405,7 @@ Add validation to our add pirate form.
 </form>
 ```
 
-The paras appear. Use `&& addform.pname.$touched` to make them appear afterwards.
+The paras appear on focus. Use `&& addform.pname.$touched` to make them appear afterwards.
 
 Add `ng-disabled` to the submit button.
 
@@ -414,8 +432,6 @@ Add `ng-disabled` to the submit button.
 </form>
 ```
 
-The paras appear when the result is invalid (e.g. empty) and only after the input field has been accessed (touched).
-
 Add error class to paragraphs:
 
 ```
@@ -425,8 +441,6 @@ Add error class to paragraphs:
 ...
 <p class="error" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
 ```
-
-
 
 Upon submission the form still registers input fields as dirty and we see the error paras. 
 
