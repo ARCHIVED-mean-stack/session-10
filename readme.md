@@ -560,6 +560,13 @@ Here's one form-group sample that uses bootstrap:
         </div>
 ```
 
+We can extend ng-class to use some of the other available formatting in bootstrap.
+
+HEre's a sample from the [Angular ng-class directive documentation](https://docs.angularjs.org/api/ng/directive/ngClass)
+
+```
+<p ng-class="{strike: deleted, bold: important, 'has-error': error}">
+```
 
 
 ##Showing Errors After Submission
