@@ -480,6 +480,8 @@ $scope.addPirate = function (pirate) {
 
 add bootstrap text-success / text-warning
 
+`<div class="form-group" ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }">`
+
 ```
 <h3>Add a Pirate</h3>
 <p class="text-success" ng-show="message">A pirate named {{message}} was added.</p>
