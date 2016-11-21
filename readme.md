@@ -208,6 +208,8 @@ Add bootstrap sass
 
 `http://getbootstrap.com/components/`
 
+Clean the repo and put assets folder in scss. 
+
 Apply to pirates-view.html:
 
 ```
