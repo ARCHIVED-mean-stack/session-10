@@ -208,7 +208,13 @@ Add [bootstrap sass](http://getbootstrap.com/getting-started/#download)
 
 `http://getbootstrap.com/components/`
 
-Clean the repo and put assets folder in scss. 
+Clean the repo and put assets folder in scss.
+
+Edit the main sass file: `@import 'assets/stylesheets/bootstrap';`
+
+Edit index.html:
+
+``
 
 Apply to pirates-view.html:
 

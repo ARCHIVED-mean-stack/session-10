@@ -1,14 +1,37 @@
 <h1>Pirates View</h1>
-<ul>
-    <li ng-repeat="pirate in pirates">
-        <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
-        <span ng-click="deletePirate($index, pirate._id)">X</span>
-    </li>
-</ul>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">Pirates View</h2>
+    </div>
+    <div class="list-group">
+        <li class="list-group-item" ng-repeat="pirate in pirates">
+            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </li>
+        </ul>
+    </div>
+</div>
 
-<form ng-submit="addPirate(pirate)">
-    <input type="text" ng-model="pirate.name" />
-    <input type="text" ng-model="pirate.vessel" />
-    <input type="text" ng-model="pirate.weapon" />
-    <input type="submit" value="Add Pirate">
+
+<h3>Add a Pirate</h3>
+
+<form ng-submit="addPirate(pirate)" name="add-pirate" novalidate>
+    <fieldset>
+        <div class="form-group">
+            <label for="pirate-name">Name</label>
+            <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
+            <p ng-show="add-pirate.name.$invalid">You must enter a name.</p>
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Vessel</label>
+            <input type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true"
+            />
+        </div>
+        <div class="form-group">
+            <label for="pirate-vessel">Weapon</label>
+            <input type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true"
+            />
+        </div>
+        <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
+    </fieldset>
 </form>
