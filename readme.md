@@ -240,12 +240,12 @@ Apply to pirates-view.html:
 
 <h3>Add a Pirate</h3>
 
-<form ng-submit="addPirate(pirate)" name="add-pirate" novalidate>
+<form ng-submit="addPirate(pirate)" name="addform" novalidate>
     <fieldset>
         <div class="form-group">
             <label for="pirate-name">Name</label>
             <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
-            <p ng-show="add-pirate.name.$invalid">You must enter a name.</p>
+            <p ng-show="addform.name.$invalid">You must enter a name.</p>
         </div>
         <div class="form-group">
             <label for="pirate-vessel">Vessel</label>
@@ -260,6 +260,8 @@ Apply to pirates-view.html:
 </form>
 </div>
 ```
+
+Test all functions.
 
 ##Form Validation - HTML5
 
@@ -342,12 +344,6 @@ novalidation
 
 ##Form Validation - Angular
 
-- Add name attribute to form
-- Add required to form fields
-- Add name attributes for fields
-- placeholder text
-- novalidate - is used to disable browser's native form validation
-
 Some CSS selectors available to us:
 
 ```css
@@ -360,26 +356,15 @@ Some CSS selectors available to us:
 
 See the [Angular Forms Guide](https://docs.angularjs.org/guide/forms) for complete documentation.
 
-Add validation to our add pirate form:
+Add validation to our add pirate form.
 
-```
-<h3>Pirates</h3>
+- Add name attribute to form
+- Add required to form fields
+- Add name attributes for fields
+- placeholder text
+- novalidate - is used to disable browser's native form validation
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">Pirates View</h2>
-    </div>
-    <div class="list-group">
-        <li class="list-group-item" ng-repeat="pirate in pirates">
-            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
-            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </li>
-        </ul>
-    </div>
-</div>
-
-<h3>Add a Pirate</h3>
-
+```html
 <form ng-submit="addPirate(pirate)" name="addform" novalidate="">
     <fieldset>
         <div class="form-group">
