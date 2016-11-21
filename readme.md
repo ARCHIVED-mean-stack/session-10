@@ -210,6 +210,14 @@ Add [bootstrap sass](http://getbootstrap.com/getting-started/#download)
 
 Clean the repo and put assets folder in scss. 
 
+Edit index.html:
+
+```html
+<body>
+    <div class="container" ng-view></div>
+</body>
+```
+
 Apply to pirates-view.html:
 
 ```
