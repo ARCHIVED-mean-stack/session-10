@@ -6,9 +6,7 @@
 
 ##Update Pirate
 
-Edit in place. 
-
-`pirate-view.html`
+Use edit in place in `pirate-detail.html`:
 
 ```
 <h1>Pirate Detail View</h1>
