@@ -359,13 +359,12 @@ See the [Angular Forms Guide](https://docs.angularjs.org/guide/forms) for comple
 Add validation to our add pirate form.
 
 - Add name attribute to form
-- Add required to form fields
+- Add ng-required = "true" to form fields
 - Add name attributes for fields
-- placeholder text
-- novalidate - is used to disable browser's native form validation
+- Add novalidate - used to disable browser's native form validation
 
 ```html
-<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+<form ng-submit="addPirate(pirate)" name="addform" novalidate>
     <fieldset>
         <div class="form-group">
             <label for="pirate-name">Name</label>
@@ -388,7 +387,7 @@ Add validation to our add pirate form.
 </form>
 ```
 
-The paras appear on focus. Use `&& addform.pname.$touched` to make them appear afterwards.
+The paras appear. Use `&& addform.pname.$touched` to make them appear afterwards.
 
 Add `ng-disabled` to the submit button.
 
@@ -415,7 +414,9 @@ Add `ng-disabled` to the submit button.
 </form>
 ```
 
-Add error class tp paragraphs:
+The paras appear when the result is invalid (e.g. empty) and only after the input field has been accessed (touched).
+
+Add error class to paragraphs:
 
 ```
 <p class="error" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
@@ -424,6 +425,8 @@ Add error class tp paragraphs:
 ...
 <p class="error" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
 ```
+
+
 
 Upon submission the form still registers input fields as dirty and we see the error paras. 
 
