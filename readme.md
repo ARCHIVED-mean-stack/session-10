@@ -214,7 +214,11 @@ Edit the main sass file: `@import 'assets/stylesheets/bootstrap';`
 
 Edit index.html:
 
-``
+```
+<body>
+    <div class="container" ng-view></div>
+</body>
+```
 
 Apply to pirates-view.html:
 
