@@ -202,7 +202,7 @@ console.log('port 3004');
 
 ##Bootstrap
 
-Add bootstrap sass
+Add [bootstrap sass](http://getbootstrap.com/getting-started/#download)
 
 `http://getbootstrap.com/css/`
 
