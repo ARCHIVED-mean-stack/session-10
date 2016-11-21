@@ -1,5 +1,8 @@
 #MEAN Session 10
 
+`<div class="form-group" ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }">`
+
+
 ```js
   "devDependencies": {
     "browser-sync": "^2.16.0",
