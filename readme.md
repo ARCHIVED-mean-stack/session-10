@@ -442,6 +442,24 @@ Add error class to paragraphs:
 <p class="error" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
 ```
 
+```css
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+button[disabled] {
+background: gray;
+}
+
+.error {
+    color: red;
+} 
+```
+
 Upon submission the form still registers input fields as dirty and we see the error paras. 
 
 Examine the [FormController method](https://docs.angularjs.org/api/ng/type/form.FormController)
