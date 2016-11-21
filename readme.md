@@ -95,7 +95,7 @@ Package.json from Image Gallery exercise:
   }
 ```
 
-Server.js:
+Server.js from Image Gallery exercise:
 
 ```
 var gulp = require('gulp');
@@ -202,11 +202,13 @@ console.log('port 3004');
 
 ##Bootstrap
 
-Add bootstrap sass
+Add [bootstrap sass](http://getbootstrap.com/getting-started/#download)
 
 `http://getbootstrap.com/css/`
 
 `http://getbootstrap.com/components/`
+
+Clean the repo and put assets folder in scss. 
 
 Apply to pirates-view.html:
 
