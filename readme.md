@@ -95,7 +95,7 @@ Package.json from Image Gallery exercise:
   }
 ```
 
-Server.js:
+Server.js from Image Gallery exercise:
 
 ```
 var gulp = require('gulp');
@@ -345,12 +345,6 @@ novalidation
 
 ##Form Validation - Angular
 
-- Add name attribute to form
-- Add required to form fields
-- Add name attributes for fields
-- placeholder text
-- novalidate - is used to disable browser's native form validation
-
 Some CSS selectors available to us:
 
 ```css
@@ -363,7 +357,12 @@ Some CSS selectors available to us:
 
 See the [Angular Forms Guide](https://docs.angularjs.org/guide/forms) for complete documentation.
 
-Add validation to our add pirate form:
+Add validation to our add pirate form.
+
+- Add name attribute to form
+- Add required to form fields
+- Add name attributes for fields
+- novalidate - is used to disable browser's native form validation
 
 ```
 <h3>Pirates</h3>
@@ -433,7 +432,7 @@ Add `ng-disabled` to the submit button.
 </form>
 ```
 
-Add error class tp paragraphs:
+Add error class to paragraphs:
 
 ```
 <p class="error" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
