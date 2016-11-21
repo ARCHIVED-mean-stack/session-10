@@ -31,7 +31,7 @@ Use edit in place in `pirate-detail.html`:
         <input ng-model="$ctrl.pirate.vessel">
         <label>Weapon</label>
         <input ng-model="$ctrl.pirate.weapon">
-        <label>Weapon</label>
+        <label>ID</label>
         <input ng-model="$ctrl.pirate._id">
         <input type="submit" value="Save">
     </form>
@@ -80,7 +80,7 @@ angular.module('pirateDetail', []).component('pirateDetail', {
 });
 ```
 
-Test.
+Test buttons. Test editing pirate.
 
 ##GULP
 
