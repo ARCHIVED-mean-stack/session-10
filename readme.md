@@ -496,25 +496,27 @@ $scope.addPirate = function (pirate) {
 
 Use ng-class and add bootstrap text-success / text-warning
 
-`<div class="form-group" ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }">`
+`<div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">`
 
 ```
 <h3>Add a Pirate</h3>
 <p class="text-success" ng-show="message">A pirate named {{message}} was added.</p>
 
+<h3>Add a Pirate</h3>
+<p ng-show="message">A pirate named {{message}} was added.</p>
 <form ng-submit="addPirate(pirate)" name="addform" novalidate="">
     <fieldset>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">
             <label for="pirate-name">Name</label>
             <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
             <p class="text-warning" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': addform.pvessel.$touched && addform.pvessel.$invalid }">
             <label for="pirate-vessel">Vessel</label>
             <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
             <p class="text-warning" ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': addform.pweapon.$touched && addform.pweapon.$invalid }">
             <label for="pirate-vessel">Weapon</label>
             <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
             <p class="text-warning" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
@@ -523,8 +525,6 @@ Use ng-class and add bootstrap text-success / text-warning
     </fieldset>
 </form>
 ```
-
-
 
 ##Showing Errors After Submission
 
