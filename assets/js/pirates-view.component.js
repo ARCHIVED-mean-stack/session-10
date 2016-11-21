@@ -15,10 +15,15 @@ angular.module('piratesView', []).component('piratesView', {
                 })
         };
 
-        $scope.addPirate = function (data) {
-            $http.post('/api/pirates/', data)
+        $scope.addPirate = function (pirate) {
+            $http.post('/api/pirates/', pirate)
                 .success(function () {
-                    $scope.pirates.push(data);
+                    $scope.message = pirate.name;
+                    $scope.pirates.push(pirate);
+                    $scope.pirate = {}
+                    $scope.addform.$setPristine();
+                    $scope.addform.$setUntouched();
+
                 })
         };
 
