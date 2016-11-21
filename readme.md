@@ -1,6 +1,8 @@
 #MEAN Session 10
 
 ##Homework
+- add bootstrap styles to the edit pirate ofrm
+- add validation to the edit pirate form
 
 ##Update Pirate
 
@@ -251,30 +253,30 @@ Apply to pirates-view.html:
 
 ##Form Validation - HTML5
 
-The fieldset element functions as a structural container for different sections within a form element. 
+The fieldset element functions as a structural container for different sections within a form element.
 
-The label element attaches descriptive information to form elements like input fields, radiobuttons, textareas.
+The label element attaches descriptive information to form elements like input fields, radiobuttons, textareas. The for attribute: the value of the attribute is the ID of a `<form>` element in the same document. Clicking on it places the focus on the input element.
 
 Other data types
 
 ```html
 <label for="email">Email:</label> 
-<input type="email" name="email" required placeholder="email@example.com" />
+<input id="email" type="email" name="email" required placeholder="email@example.com" />
 
 <label for="website">Website:</label> 
-<input type="url" name="website" required placeholder="http://www.example.com" />
+<input id="website" type="url" name="website" required placeholder="http://www.example.com" />
 
 <label for="number">Number:</label> 
-<input type="number" name="number" min="0" max="10" step="2" required placeholder="Even num < 10">
+<input id="number" type="number" name="number" min="0" max="10" step="2" required placeholder="Even num < 10">
 
 <label for="range">Range:</label> 
-<input type="range" name="range" min="0" max="10" step="2" />
+<input id="range" type="range" name="range" min="0" max="10" step="2" />
 
 <label for="date">Date</label> 
-<input type="date" name="date" />
+<input id="date" type="date" name="date" />
 
 <label for="message">Message:</label> 
-<textarea name="message" required></textarea>
+<textarea id="message" name="message" required></textarea>
 
 <input type="submit" value="Send Message" />
 ```
@@ -327,17 +329,14 @@ novalidation
 <form name=”” action=”” novalidate >
 ```
 
-Add 
-
-- placeholder text
-- novalidate - use html5 form elements but not for validation
-
 
 ##Form Validation - Angular
 
 - Add name attribute to form
 - Add required to form fields
 - Add name attributes for fields
+- placeholder text
+- novalidate - is used to disable browser's native form validation
 
 Some CSS selectors available to us:
 
@@ -347,14 +346,11 @@ Some CSS selectors available to us:
 .ng-pristine    {  }
 .ng-dirty       {  }
 .ng-touched     {  }
-
-/* really specific css rules applied by angular */
-.ng-invalid-required        {  }
-.ng-invalid-minlength       {  }
-.ng-valid-max-length        {  }
 ```
 
-`https://docs.angularjs.org/guide/forms`
+See the [Angular Forms Guide](https://docs.angularjs.org/guide/forms) for complete documentation.
+
+Add validation to our add pirate form:
 
 ```
 <h3>Pirates</h3>
@@ -397,7 +393,9 @@ Some CSS selectors available to us:
 </form>
 ```
 
-&& and ng-disabled
+The paras appear on focus. Use `&& addform.pname.$touched` to make them appear afterwards.
+
+Add `ng-disabled` to the submit button.
 
 ```
 <form ng-submit="addPirate(pirate)" name="addform" novalidate="">
@@ -417,35 +415,24 @@ Some CSS selectors available to us:
             <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
             <p ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
         </div>
-        <button type="submit" value="Add Pirate" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
     </fieldset>
 </form>
 ```
 
+Add error class tp paragraphs:
+
 ```
-<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
-    <fieldset>
-        <div class="form-group">
-            <label for="pirate-name">Name</label>
-            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
-            <p class="error" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
-        </div>
-        <div class="form-group">
-            <label for="pirate-vessel">Vessel</label>
-            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
-            <p class="error" ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
-        </div>
-        <div class="form-group">
-            <label for="pirate-vessel">Weapon</label>
-            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
-            <p class="error" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
-        </div>
-        <button type="submit" ng-submit="addPirate(pirate)" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
-    </fieldset>
-</form>
+<p class="error" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+...
+<p class="error" ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
+...
+<p class="error" ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
 ```
 
-`https://docs.angularjs.org/api/ng/type/form.FormController`
+Upon submission the form still registers input fields as dirty and we see the error paras. 
+
+Examine the [FormController method](https://docs.angularjs.org/api/ng/type/form.FormController)
 
 ```
 $scope.addPirate = function (data) {
@@ -459,7 +446,7 @@ $scope.addPirate = function (data) {
 };
 ```
 
-add message
+add message to top of form:
 
 `<p ng-show="message">A pirate named {{message}} was added.</p>`
 
@@ -477,7 +464,7 @@ $scope.addPirate = function (pirate) {
 };
 ```
 
-add bootstrap text-success / text-warning
+Use ng-class and add bootstrap text-success / text-warning
 
 `<div class="form-group" ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }">`
 
