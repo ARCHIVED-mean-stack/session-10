@@ -2,16 +2,14 @@
 
 ##Homework
 
-##Update / Post
+##Update Pirate
 
-http://jsfiddle.net/timriley/GVCP2/
+Edit in place. 
 
-pirate-view.html
+`pirate-view.html`
 
 ```
 <h1>Pirate Detail View</h1>
-
-
 <div ng-hide="$ctrl.editorEnabled">
     <dl>
         <dt>Name</dt>
@@ -42,7 +40,7 @@ pirate-view.html
 <button type="submit" ng-click="$ctrl.back()">Back</button>
 ```
 
-pirate-view.component.js
+`pirate-view.component.js`
 
 ```js
 angular.module('pirateDetail', []).component('pirateDetail', {
@@ -82,9 +80,11 @@ angular.module('pirateDetail', []).component('pirateDetail', {
 });
 ```
 
+Test.
+
 ##GULP
 
-From Image Gallery exercise:
+Package.json from Image Gallery exercise:
 
 ```js
   "devDependencies": {
@@ -94,6 +94,8 @@ From Image Gallery exercise:
     "gulp-sourcemaps": "^1.6.0"
   }
 ```
+
+Server.js:
 
 ```
 var gulp = require('gulp');
@@ -132,13 +134,12 @@ function listening () {
 	gulp.watch(htmlSource).on('change', browserSync.reload);
 }
 
-
 app.use(express.static('./app/public'));
 
 app.listen(port, listening);
 ```
 
-Integrate into our server.js:
+Integrate into our `server.js`:
 
 ```
 var express = require('express');
@@ -207,6 +208,8 @@ Add bootstrap sass
 
 `http://getbootstrap.com/components/`
 
+Apply to pirates-view.html:
+
 ```
 <h3>Pirates</h3>
 
@@ -246,9 +249,7 @@ Add bootstrap sass
 </div>
 ```
 
-
-##Form Validation
-
+##Form Validation - HTML5
 
 The fieldset element functions as a structural container for different sections within a form element. 
 
@@ -332,9 +333,7 @@ Add
 - novalidate - use html5 form elements but not for validation
 
 
-
-
-##Angular Validation
+##Form Validation - Angular
 
 - Add name attribute to form
 - Add required to form fields
