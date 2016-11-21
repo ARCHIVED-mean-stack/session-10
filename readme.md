@@ -507,7 +507,7 @@ Use ng-class and add bootstrap text-success / text-warning
 <form ng-submit="addPirate(pirate)" name="addform" novalidate="">
     <fieldset>
         <div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">
-            <label for="pirate-name">Name</label>
+            <label class="control-label" for="pirate-name">Name</label>
             <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
             <p class="text-warning" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
         </div>
@@ -526,124 +526,40 @@ Use ng-class and add bootstrap text-success / text-warning
 </form>
 ```
 
+See http://getbootstrap.com/css/#forms-control-validation for details on using this class.
+
+```
+@import 'assets/stylesheets/bootstrap';
+
+/*input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}*/
+
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+button[disabled] {
+background: gray;
+}
+
+/*.error {
+    color: red;
+}*/
+```
+
+
+```
+<div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">
+            <label class="control-label" for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <p class="text-warning" class="help-block" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+        </div>
+```
+
 
 
 ##Showing Errors After Submission
-
-
-empty string for the error in the scope
-
-```js
-$scope.adding_portfolio = {};
-			$scope.add_portfolio_error = "";
-			$scope.portfolios = [
-			{name: 'vessel1309', title: 'Call of Booty', 
-
-in the addPortfolio function
-
-$scope.addPortfolio = function (new_portfolio) {
-	// validation goes here before the push
-	$scope.portfolios.push(new_portfolio);
-	$scope.adding_portfolio = {};
-};
-```
-
-validation ver 1
-
-```js
-$scope.addPortfolio = function (new_portfolio) {
-
-// if new_portfolio is not defined
-if (typeof(new_portfolio) === 'undefined') {
-    // then add an error message to $scope and exit
-    $scope.add_portfolio_error = "The form is not properly filled out";
-    return false;
-}
-
-	if (!new_portfolio.date || new_portfolio.date.length < 10){
-		$scope.add_portfolio_error = "You must provide a date in format yyyy/mm/dd";
-	} 
-	else 
-	{
-		$scope.portfolios.push(new_portfolio);
-		$scope.adding_portfolio = {};
-	};
-};
-```
-
-validation ver 2
-
-```js
-	$scope.addPortfolio = function( new_portfolio ){
-		$scope.add_portfolio_error = "";
-		// add validation below before the push
-		if (!new_portfolio.title) {
-			$scope.add_portfolio_error = "Missing title"
-		}
-		else if (!new_portfolio.date || new_portfolio.date.length < 10){
-			$scope.add_portfolio_error = "You must provide a date in format yyyy/mm/dd";
-		} else {
-			$scope.portfolios.push( new_portfolio );
-			$scope.adding_portfolio = {};
-		};
-	};
-};
-```
-
-validation ver 3
-
-```js
-	$scope.addPortfolio = function( new_portfolio ){
-		$scope.add_portfolio_error = "";
-		// add validation below before the push
-		if (!new_portfolio.title) {
-			$scope.add_portfolio_error = "Missing title"
-		}
-		else if (!new_portfolio.date || new_portfolio.date.length < 10){
-			$scope.add_portfolio_error = "You must provide a date in format yyyy/mm/dd";
-		} else if (!new_portfolio.description){
-			$scope.add_portfolio_error = "Missing description";
-		} else if (!new_portfolio.name) {
-			$scope.add_portfolio_error = "Missing name - six characters";
-		} else {
-			$scope.portfolios.push( new_portfolio );
-			$scope.adding_portfolio = {};
-		};
-	};
-};
-```
-
-Syntax Note - version w/o curly braces also works
-
-```js
-	$scope.addPortfolio = function( new_portfolio ){
-		$scope.add_portfolio_error = "";
-		// add validation below before the push
-		if (!new_portfolio.title)
-			$scope.add_portfolio_error = "Missing title"
-		else if (!new_portfolio.date || new_portfolio.date.length < 10)
-			$scope.add_portfolio_error = "You must provide a date in format yyyy/mm/dd";
-		else if (!new_portfolio.description)
-			$scope.add_portfolio_error = "Missing description";
-		else if (!new_portfolio.name)
-			$scope.add_portfolio_error = "Missing name - six characters";
-		else {
-			$scope.portfolios.push( new_portfolio );
-			$scope.adding_portfolio = {};
-		};
-	};
-};
-```
-
-validation ver 4 - remove the error message after submit
-
-```js
-else {
-	$scope.portfolios.push(new_portfolio);
-	$scope.adding_portfolio = {};
-	$scope.add_portfolio_error = "";
-}
-```
 
 
 

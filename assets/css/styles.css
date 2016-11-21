@@ -7736,10 +7736,9 @@ button.close {
   }
 }
 
-input.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
-
+/*input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}*/
 input.ng-valid.ng-touched {
   border: 1px solid green;
 }
@@ -7748,8 +7747,8 @@ button[disabled] {
   background: gray;
 }
 
-.error {
-  color: red;
-}
+/*.error {
+    color: red;
+}*/
 
 /*# sourceMappingURL=styles.css.map */

@@ -1,8 +1,8 @@
 @import 'assets/stylesheets/bootstrap';
 
-input.ng-invalid.ng-touched {
+/*input.ng-invalid.ng-touched {
     border: 1px solid red;
-}
+}*/
 
 input.ng-valid.ng-touched {
     border: 1px solid green;
@@ -12,6 +12,6 @@ button[disabled] {
 background: gray;
 }
 
-.error {
+/*.error {
     color: red;
-}
+}*/
