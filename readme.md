@@ -1,7 +1,7 @@
 #MEAN Session 10
 
 ##Homework
-- add bootstrap styles to the edit pirate ofrm
+- add bootstrap styles to the edit pirate form
 - add validation to the edit pirate form
 
 ##Update Pirate
