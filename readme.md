@@ -3,6 +3,7 @@
 ##Homework
 - add bootstrap styles to the edit pirate form
 - add validation to the edit pirate form
+- add a cancel botton tot he edit pirate form
 
 ##Update Pirate
 
@@ -47,7 +48,7 @@ angular.module('pirateDetail', []).component('pirateDetail', {
     templateUrl: '/templates/pirate-detail.html',
 
     controller: ['$scope', '$http', '$routeParams', '$location',
-        function PirateDetailController($scope, $http, $routeParams, $location) {
+        function PirateDetailController($http, $routeParams, $location) {
             var self = this;
             $http.get('/api/pirates/' + $routeParams.pirateId)
                 .then(function (res) {
@@ -200,73 +201,6 @@ app.listen(port, listening);
 console.log('port 3004');
 ```
 
-##Bootstrap
-
-Add [bootstrap sass](http://getbootstrap.com/getting-started/#download)
-
-`http://getbootstrap.com/css/`
-
-`http://getbootstrap.com/components/`
-
-Clean the repo and put assets folder in scss.
-
-Edit the main sass file: `@import 'assets/stylesheets/bootstrap';`
-
-Edit index.html:
-
-```
-<body>
-    <div class="container" ng-view></div>
-</body>
-```
-
-Responsive grid - `http://getbootstrap.com/css/#grid-example-mixed-complete`
-
-Apply to pirates-view.html:
-
-```
-<h1>Pirates View</h1>
-<div class="col-xs-12 col-sm-6 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2 class="panel-title">Pirates View</h2>
-        </div>
-        <div class="list-group">
-            <li class="list-group-item" ng-repeat="pirate in pirates">
-                <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
-                <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="col-xs-12 col-sm-6 col-md-6">
-<h3>Add a Pirate</h3>
-    <form ng-submit="addPirate(pirate)" name="addform" novalidate>
-        <fieldset>
-            <div class="form-group">
-                <label for="pirate-name">Name</label>
-                <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
-                <p ng-show="addform.name.$invalid">You must enter a name.</p>
-            </div>
-            <div class="form-group">
-                <label for="pirate-vessel">Vessel</label>
-                <input type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true" />
-            </div>
-            <div class="form-group">
-                <label for="pirate-vessel">Weapon</label>
-                <input type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true" />
-            </div>
-            <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
-        </fieldset>
-    </form>
-    </div>
-</div>
-```
-
-Test all functions.
-
 
 ##Form Validation - HTML5
 
@@ -299,7 +233,7 @@ Other data types
 ```
 
 
-Note: [styling placeholder text](http://css-tricks.com/snippets/css/style-placeholder-text/)
+Note: [styling placeholder text](https://css-tricks.com/snippets/css/style-placeholder-text/)
 
 ```css
 ::-webkit-input-placeholder {
@@ -347,6 +281,74 @@ novalidation
 ```
 
 
+##Bootstrap
+
+Add [bootstrap sass](http://getbootstrap.com/getting-started/#download)
+
+`http://getbootstrap.com/css/`
+
+`http://getbootstrap.com/components/`
+
+Clean the repo and put assets folder in scss.
+
+Edit the main sass file: `@import 'assets/stylesheets/bootstrap';`
+
+Edit index.html:
+
+```
+<body>
+    <div class="container" ng-view></div>
+</body>
+```
+
+Responsive grid - `http://getbootstrap.com/css/#grid-example-mixed-complete`
+
+Apply to pirates-view.html:
+
+```
+<div class="col-xs-12">
+    <h1>Pirates View</h1>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Pirates View</h2>
+        </div>
+        <div class="list-group">
+            <ul>
+                <li class="list-group-item" ng-repeat="pirate in pirates">
+                    <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+                    <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-md-6">
+    <h3>Add a Pirate</h3>
+    <form ng-submit="addPirate(pirate)" name="addform" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label for="pirate-name">Name</label>
+                <input type="text" class="form-control" placeholder="Name" ng-model="pirate.name" />
+            </div>
+            <div class="form-group">
+                <label for="pirate-vessel">Vessel</label>
+                <input type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" />
+            </div>
+            <div class="form-group">
+                <label for="pirate-vessel">Weapon</label>
+                <input type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Pirate</button>
+        </fieldset>
+    </form>
+</div>
+```
+
+Test all functions.
+
 ##Form Validation - Angular
 
 Some CSS selectors available to us:
@@ -367,31 +369,15 @@ Add validation to our add pirate form.
 - Add required to form fields
 - Add name attributes for fields
 - novalidate - is used to disable browser's native form validation
+- Add paragraphs using ng-show
 
 ```
-<h3>Pirates</h3>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">Pirates View</h2>
-    </div>
-    <div class="list-group">
-        <li class="list-group-item" ng-repeat="pirate in pirates">
-            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
-            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </li>
-        </ul>
-    </div>
-</div>
-
-<h3>Add a Pirate</h3>
-
-<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+<form ng-submit="addPirate(pirate)" name="addform" novalidate>
     <fieldset>
         <div class="form-group">
             <label for="pirate-name">Name</label>
-            <input type="text" name="pname" ng-model="name" class="form-control" id="pirate-name" placeholder="Name" ng-minlength="4"
-                ng-required="true">
+            <input type="text" name="pname" ng-model="name" class="form-control" id="pirate-name" placeholder="Name" ng-minlength="4" ng-required="true">
             <p ng-show="addform.pname.$invalid">You must enter a name.</p>
         </div>
         <div class="form-group">
@@ -404,34 +390,34 @@ Add validation to our add pirate form.
             <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
             <p ng-show="addform.pweapon.$invalid">You must enter a weapon.</p>
         </div>
-        <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
+        <button type="submit" class="btn btn-primary">Add Pirate</button>
     </fieldset>
 </form>
 ```
 
-The paras appear on focus. Use `&& addform.pname.$touched` to make them appear afterwards.
+The paras appear and then disappear when valid. Use `&& addform.pname.$touched` to make them appear afterwards.
 
-Add `ng-disabled` to the submit button.
+Add `ng-disabled="addform.$invalid"` to the submit button.
 
 ```
-<form ng-submit="addPirate(pirate)" name="addform" novalidate="">
+<form ng-submit="addPirate(pirate)" name="addform" novalidate>
     <fieldset>
         <div class="form-group">
             <label for="pirate-name">Name</label>
-            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <input name="pname" type="text" class="form-control" placeholder="Name" ng-model="pirate.name" ng-required="true" />
             <p ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
         </div>
         <div class="form-group">
             <label for="pirate-vessel">Vessel</label>
-            <input type="text" name="pvessel" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true">
-            <p ng-show="addform.pvessel.$invalid && addform.pvessel.$touched">You must enter a vessel.</p>
+            <input name="pvessel" type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true" />
+            <p ng-show="addform.pvessel.$invalid && addform.pname.$touched">You must enter a vessel.</p>
         </div>
         <div class="form-group">
             <label for="pirate-vessel">Weapon</label>
-            <input type="text" name="pweapon" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true">
-            <p ng-show="addform.pweapon.$invalid && addform.pweapon.$touched">You must enter a weapon.</p>
+            <input name="pweapon" type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true" />
+            <p ng-show="addform.pweapon.$invalid && addform.pname.$touched">You must enter a weapon.</p>
         </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="addform.$invalid">Add Pirate</button>
+        <button type="submit" ng-disabled="addform.$invalid" class="btn btn-primary">Add Pirate</button>
     </fieldset>
 </form>
 ```
@@ -485,29 +471,25 @@ add message to top of form:
 `<p ng-show="message">A pirate named {{message}} was added.</p>`
 
 ```
-$scope.addPirate = function (pirate) {
-    $http.post('/api/pirates/', pirate)
-        .success(function () {
-            $scope.message = pirate.name;
-            $scope.pirates.push(pirate);
+$scope.addPirate = function(data) {
+    $http.post('/api/pirates/', data)
+        .success(function() {
+            $scope.message = data.name;
+            $scope.pirates.push(data);
             $scope.pirate = {}
             $scope.addform.$setPristine();
             $scope.addform.$setUntouched();
-
         })
 };
 ```
 
 Use ng-class and add bootstrap text-success / text-warning
 
-`<div class="form-group" ng-class="{ 'has-error': addform.name.$touched && addform.name.$invalid }">`
+`<div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.name.$invalid }">`
 
 ```
 <h3>Add a Pirate</h3>
 <p class="text-success" ng-show="message">A pirate named {{message}} was added.</p>
-
-<h3>Add a Pirate</h3>
-<p ng-show="message">A pirate named {{message}} was added.</p>
 <form ng-submit="addPirate(pirate)" name="addform" novalidate="">
     <fieldset>
         <div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">
@@ -532,6 +514,20 @@ Use ng-class and add bootstrap text-success / text-warning
 
 See http://getbootstrap.com/css/#forms-control-validation for details on using this class.
 
+Use `text-warning` for the paragraphs.
+
+Use `class="control-label"` for the labels.
+
+Here's one form-group sample that uses bootstrap:
+
+```
+<div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">
+            <label class="control-label" for="pirate-name">Name</label>
+            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
+            <p class="text-warning" class="help-block" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
+        </div>
+```
+
 We no longer need some of our classes:
 
 ```
@@ -554,26 +550,13 @@ background: gray;
 }*/
 ```
 
-Here's one form-group sample that uses bootstrap:
-
-```
-<div class="form-group" ng-class="{ 'has-error': addform.pname.$touched && addform.pname.$invalid }">
-            <label class="control-label" for="pirate-name">Name</label>
-            <input type="text" name="pname" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true">
-            <p class="text-warning" class="help-block" ng-show="addform.pname.$invalid && addform.pname.$touched">You must enter a name.</p>
-        </div>
-```
-
 We can extend ng-class to use some of the other available formatting in bootstrap.
 
-HEre's a sample from the [Angular ng-class directive documentation](https://docs.angularjs.org/api/ng/directive/ngClass)
+Here's a sample from the [Angular ng-class directive documentation](https://docs.angularjs.org/api/ng/directive/ngClass)
 
 ```
 <p ng-class="{strike: deleted, bold: important, 'has-error': error}">
 ```
-
-
-##Showing Errors After Submission
 
 
 
