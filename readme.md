@@ -220,44 +220,47 @@ Edit index.html:
 </body>
 ```
 
+Responsive grid - `http://getbootstrap.com/css/#grid-example-mixed-complete`
+
 Apply to pirates-view.html:
 
 ```
 <h3>Pirates</h3>
-
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">Pirates View</h2>
-    </div>
-    <div class="list-group">
-        <li class="list-group-item" ng-repeat="pirate in pirates">
-            <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
-            <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </li>
-        </ul>
+<div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Pirates View</h2>
+        </div>
+        <div class="list-group">
+            <li class="list-group-item" ng-repeat="pirate in pirates">
+                <a href="#/pirates/{{ pirate._id }}">{{ pirate.name }}</a>
+                <button ng-click="deletePirate($index, pirate._id)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </li>
+            </ul>
+        </div>
     </div>
 </div>
 
-<h3>Add a Pirate</h3>
-
-<form ng-submit="addPirate(pirate)" name="addform" novalidate>
-    <fieldset>
-        <div class="form-group">
-            <label for="pirate-name">Name</label>
-            <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
-            <p ng-show="addform.name.$invalid">You must enter a name.</p>
-        </div>
-        <div class="form-group">
-            <label for="pirate-vessel">Vessel</label>
-            <input type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true" />
-        </div>
-        <div class="form-group">
-            <label for="pirate-vessel">Weapon</label>
-            <input type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true" />
-        </div>
-        <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
-    </fieldset>
-</form>
+<div class="col-xs-12 col-sm-6 col-md-6">
+    <h3>Add a Pirate</h3>
+    <form ng-submit="addPirate(pirate)" name="addform" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label for="pirate-name">Name</label>
+                <input type="text" ng-model="pirate.name" class="form-control" id="pirate-name" placeholder="Name" ng-required="true" />
+                <p ng-show="addform.name.$invalid">You must enter a name.</p>
+            </div>
+            <div class="form-group">
+                <label for="pirate-vessel">Vessel</label>
+                <input type="text" ng-model="pirate.vessel" class="form-control" id="pirate-vessel" placeholder="Vessel" ng-required="true" />
+            </div>
+            <div class="form-group">
+                <label for="pirate-vessel">Weapon</label>
+                <input type="text" ng-model="pirate.weapon" class="form-control" id="pirate-weapon" placeholder="Weapon" ng-required="true" />
+            </div>
+            <button type="submit" value="Add Pirate" class="btn btn-primary">Add Pirate</button>
+        </fieldset>
+    </form>
 </div>
 ```
 
